@@ -1,0 +1,23 @@
+{
+  "name": "chatlearning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "watch-sass": "sass --watch scss/styles.scss public/css/styles.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "custom-env": "^2.0.1",
+    "express": "^4.17.1",
+    "i18n": "^0.13.2",
+    "twig": "^1.15.2"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4"
+  }
+}
