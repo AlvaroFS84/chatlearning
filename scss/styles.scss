@@ -1,3 +1,37 @@
-h1{
-    color: red;
+$primary-color: #5cdb95;
+$secondary-color: #05336B;
+$third-color: #EDF5E1;
+
+@import "fonts.scss";
+
+body{
+    background-color:$primary-color;
+    font-family: 'Noto Sans JP', sans-serif;
+
+    .base-btn{
+        background-color: $secondary-color;
+        color: white;
+        width: 100%;
+        
+    }
+    .base-btn:hover{
+        color: $third-color;
+    }
+    a{
+        color: $secondary-color;
+    }
+    .login-container{
+        padding-top: 18%;
+    }
+    .rs-button{
+        margin-top: 10px;
+    }
+
+    .rounded-input{
+        border-radius: 20px;
+    }
+    .page-title{
+        margin-bottom: 15px;
+    }
 }
+

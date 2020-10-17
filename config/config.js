@@ -3,5 +3,10 @@ require('custom-env').env('local')
 const config = {
     env: process.env.NODE_ENV || development,
     port: process.env.PORT || 3000, 
+    db_connect: process.env.DB_CONNECT,
+    session_secret:process.env.SESSION_SECRET,
+    google_consumer_key: process.env.GOOGLE_CONSUMER_KEY,
+    google_consumer_secret: process.env.GOOGLE_CONSUMER_SECRET,
+    google_callback:process.env.GOOGLE_CALLBACK
 }
 module.exports = config
