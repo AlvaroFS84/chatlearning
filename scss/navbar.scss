@@ -1,0 +1,31 @@
+.custom-navbar{
+    background-color: $secondary-color;
+    
+    
+    .custom-navbar-brand{
+        color: $third-color;
+        font-size: 40px;
+        font-family: 'Noto Sans JP';
+
+        @media (max-width: 768px) {
+            font-size: 20px;
+        }
+    }
+
+    .user-name-text{
+        color: $third-color;
+    }
+    .dropdown{
+        margin-right: 5%;
+    }
+    #dropdownMenuButton,.dropdown-item, .dropdown-menu{
+        background-color: $fourth-color;
+    }
+    .dropdown-item{
+        color: $third-color;
+    }
+    .dropdown-item:hover{
+        color: black;
+        background-color: $third-color;
+    }
+}
