@@ -4,5 +4,24 @@
     {% include '../navbar.twig' %}
 {% endblock %}
 {% block body %}
-    <h1>Create test</h1>
+    <h1>Nuevo Test</h1>
+    <div class="floating-button-row">
+        <button class="btn base-btn rounded-input" id="add-question">Añadir pregunta</button>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-9">
+            <form>
+                <div class="form-group">
+                  <label for="test-name"><h3>Nombre</h3></label>
+                  <input type="text" class="form-control" id="test-name" placeholder="Nombre del test">
+                </div>
+                <div class="col-sm-12 col-md-9" id="questions-container"></div>
+                <button type="submit" class="btn btn-primary">Crear Test</button>
+            </form>
+        </div>
+    </div>
+    {% block scripts %}
+        {{ parent() }}
+        <script src="js/create-test.js"></script>
+    {% endblock css %}
 {% endblock %}
