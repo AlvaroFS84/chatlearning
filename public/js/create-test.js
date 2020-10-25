@@ -6,16 +6,16 @@ $(document).ready(function(){
         <div class="question" id="question-${n_question}">
             <div class="form-group">
                 <label for="question-text"><h3>Pregunta</h3></label>
-                <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta">
+                <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta" required>
             </div>
             <h4 class="answers-title">Respuestas</h4>
             <div class="answer_container" id="answer-container-${n_question}">
                 <div class="form-group answer-group answer">
-                    <input type="text" name='answer-text-${n_question}-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
-                    Correcta <input class="answer-value" type="radio" name="radio-value-correct-${n_question}" name="radio-value-${n_question}">
+                    <input type="text" name='answer-text-${n_question}-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta" required>
+                    Correcta <input class="answer-value" type="radio" name="radio-value-correct-${n_question}" name="radio-value-${n_question}" required>
                 </div>
                 <div class="form-group answer-group answer">
-                    <input type="text" name='answer-text-${n_question}-2' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
+                    <input type="text" name='answer-text-${n_question}-2' class="form-control answer-text" placeholder="Introduce el texto de la respuesta" required>
                     Correcta <input class="answer-value" type="radio" name="radio-value-correct-${n_question}" name="radio-value-${n_question}">
                 </div>
             </div>

@@ -15,22 +15,22 @@
             <form id="save-test-form" method='post' action="/guardar-test">
                 <div class="form-group">
                   <label for="test-name"><h3>Nombre</h3></label>
-                  <input type="text" class="form-control" name="test-name" id="test-name" placeholder="Nombre del test">
+                  <input type="text" class="form-control" name="test-name" id="test-name" placeholder="Nombre del test" required>
                 </div>
                 <div class="col-sm-12 col-md-12" id="questions-container">
                     <div class="question" id="question-1">
                         <div class="form-group">
                             <label for="question-text"><h3>Pregunta</h3></label>
-                            <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta">
+                            <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta" required>
                         </div>
                         <h4 class="answers-title">Respuestas</h4>
                         <div class="answer_container" id="answer-container-1">
                             <div class="form-group answer-group">
-                                <input type="text" name='answer-text-1-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
-                                Correcta <input class="answer-value" type="radio" name="radio-value-correct-1">
+                                <input type="text" name='answer-text-1-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta" required>
+                                Correcta <input class="answer-value" type="radio" name="radio-value-correct-1" required>
                             </div>
                             <div class="form-group answer-group">
-                                <input type="text" name='answer-text-1-2' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
+                                <input type="text" name='answer-text-1-2' class="form-control answer-text" placeholder="Introduce el texto de la respuesta" required>
                                 Correcta <input class="answer-value" type="radio" name="radio-value-correct-1">
                             </div>
                         </div>
