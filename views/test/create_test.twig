@@ -4,11 +4,13 @@
     {% include '../navbar.twig' %}
 {% endblock %}
 {% block body %}
-    <h1>Nuevo Test</h1>
-    <div class="floating-button-row">
-        <button class="btn base-btn rounded-input" id="add-question">Añadir pregunta</button>
-    </div>
-    <div class="row">
+    <div class="test-creation-menu">
+        <h1>Nuevo Test</h1>
+        <div class="floating-button-row">
+            <button class="btn base-btn rounded-input add-delete-button" id="add-question">Añadir pregunta</button>
+            <button class="btn base-btn rounded-input add-delete-button" id="delete-question">Borrar pregunta</button>
+        </div>
+        <div class="row">
         <div class="col-sm-12 col-md-9">
             <form id="save-test-form" method='post' action="/guardar-test">
                 <div class="form-group">
@@ -20,8 +22,8 @@
                         <div class="form-group">
                             <label for="question-text"><h3>Pregunta</h3></label>
                             <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta">
-                            <h4>Respuestas</h4>
                         </div>
+                        <h4 class="answers-title">Respuestas</h4>
                         <div class="answer_container" id="answer-container-1">
                             <div class="form-group answer-group">
                                 <input type="text" name='answer-text-1-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
@@ -32,12 +34,13 @@
                                 Correcta <input class="answer-value" type="radio" name="radio-value-correct-1">
                             </div>
                         </div>
-                        <span class="btn base-btn rounded-input" onclick="addAnswer(1)">Añadir respuesta</span>
-                        <span class="btn base-btn rounded-input" onclick="removeAnswer(1)">Quitar respuesta</span>
+                        <div class="question-button-row"><span class="btn base-btn rounded-input" onclick="addAnswer(1)">Añadir respuesta</span></div>
+                        <div class="question-button-row"><span class="btn base-btn rounded-input" onclick="removeAnswer(1)">Quitar respuesta</span></div>
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Crear Test</button>
+                <button id="form-submit" type="submit" class="btn base-btn rounded-input">Crear Test</button>
             </form>
+        </div>
         </div>
     </div>
 {% endblock %}

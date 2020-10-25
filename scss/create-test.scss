@@ -1,7 +1,29 @@
-.floating-button-row{
-    position: fixed;
-    bottom: 4%;
-    right: 7%;
-    width: 160px !important;
-    z-index: 5;
+.test-creation-menu{
+
+    .floating-button-row{
+        position: fixed;
+        bottom: 4%;
+        right: 7%;
+        width: 160px !important;
+        z-index: 5;
+    }
+    .question-button-row{
+        text-align: center;
+        margin-bottom: 12px;
+        span{
+            width: 200px !important;
+        }
+    }
+    .answers-title{
+        margin-top: 25px;
+    }
+    .answer-value{
+        margin-top: 10px;
+    }
+    .add-delete-button{
+        margin-bottom: 10px;
+    }
+    #form-submit{
+        margin-bottom: 5%;
+    }
 }

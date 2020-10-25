@@ -1,14 +1,14 @@
 $(document).ready(function(){
     var n_question = 2;
     
-    $('#add-question').on('click',function(){
+    $('#add-question').click(function(){
         const question_html = `
         <div class="question" id="question-${n_question}">
             <div class="form-group">
                 <label for="question-text"><h3>Pregunta</h3></label>
                 <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta">
-                <h4>Respuestas</h4>
             </div>
+            <h4 class="answers-title">Respuestas</h4>
             <div class="answer_container" id="answer-container-${n_question}">
                 <div class="form-group answer-group answer">
                     <input type="text" name='answer-text-${n_question}-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
@@ -19,8 +19,8 @@ $(document).ready(function(){
                     Correcta <input class="answer-value" type="radio" name="radio-value-correct-${n_question}" name="radio-value-${n_question}">
                 </div>
             </div>
-            <span class="btn base-btn rounded-input" onclick="addAnswer(${n_question})">Añadir respuesta</span>
-            <span class="btn base-btn rounded-input" onclick="removeAnswer(${n_question})">Quitar respuesta</span>
+            <div class="question-button-row"><span class="btn base-btn rounded-input" onclick="addAnswer(${n_question})">Añadir respuesta</span></div>
+            <div class="question-button-row"><span class="btn base-btn rounded-input" onclick="removeAnswer(${n_question})">Quitar respuesta</span></div>
         </div>`;  
 
         if($('.question-text').length < 20){
@@ -29,6 +29,12 @@ $(document).ready(function(){
         }
     })
 
+    $('#delete-question').click(function(){
+        let n_question = $('.question').length;
+        if(n_question > 1){
+            $('.question')[n_question-1].remove();
+        }
+    });
     $('#save-test-form').submit(function(e){
         e.preventDefault();
         var test = {
