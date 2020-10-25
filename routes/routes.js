@@ -47,7 +47,7 @@ router.get( '/google-callback',
 );
 
 router.get('/perfil',isAuthenticated, profileController.showProfile);
-router.post('/save-test', testController.saveTest);
+router.post('/guardar-test', testController.saveTest);
 router.get('/crear-test', isAuthenticated, testController.createTest);
 
 module.exports = router

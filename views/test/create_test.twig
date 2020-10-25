@@ -10,18 +10,38 @@
     </div>
     <div class="row">
         <div class="col-sm-12 col-md-9">
-            <form>
+            <form id="save-test-form" method='post' action="/guardar-test">
                 <div class="form-group">
                   <label for="test-name"><h3>Nombre</h3></label>
-                  <input type="text" class="form-control" id="test-name" placeholder="Nombre del test">
+                  <input type="text" class="form-control" name="test-name" id="test-name" placeholder="Nombre del test">
                 </div>
-                <div class="col-sm-12 col-md-9" id="questions-container"></div>
+                <div class="col-sm-12 col-md-12" id="questions-container">
+                    <div class="question" id="question-1">
+                        <div class="form-group">
+                            <label for="question-text"><h3>Pregunta</h3></label>
+                            <input type="text" class="form-control question-text" placeholder="Introduce el texto de la pregunta">
+                            <h4>Respuestas</h4>
+                        </div>
+                        <div class="answer_container" id="answer-container-1">
+                            <div class="form-group answer-group">
+                                <input type="text" name='answer-text-1-1' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
+                                Correcta <input class="answer-value" type="radio" name="radio-value-correct-1">
+                            </div>
+                            <div class="form-group answer-group">
+                                <input type="text" name='answer-text-1-2' class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
+                                Correcta <input class="answer-value" type="radio" name="radio-value-correct-1">
+                            </div>
+                        </div>
+                        <span class="btn base-btn rounded-input" onclick="addAnswer(1)">Añadir respuesta</span>
+                        <span class="btn base-btn rounded-input" onclick="removeAnswer(1)">Quitar respuesta</span>
+                    </div>
+                </div>
                 <button type="submit" class="btn btn-primary">Crear Test</button>
             </form>
         </div>
     </div>
-    {% block scripts %}
-        {{ parent() }}
-        <script src="js/create-test.js"></script>
-    {% endblock css %}
 {% endblock %}
+{% block scripts %}
+    {{ parent() }}
+    <script src="js/create-test.js"></script>
+{% endblock css %}

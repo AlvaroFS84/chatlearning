@@ -13,10 +13,7 @@ class TestController{
 
             test.questions = [question];
             test.save();*/
-            Test.find().populate('questions').exec(function(err, test){
-                console.log(test[0].questions);
-            });
-            res.send('save test');
+            console.log(req.body);
         }
 
         createTest = function(req,res){

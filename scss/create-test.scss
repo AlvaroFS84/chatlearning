@@ -1,6 +1,7 @@
 .floating-button-row{
-    position: absolute;
-    bottom: 20%;
+    position: fixed;
+    bottom: 4%;
     right: 7%;
     width: 160px !important;
+    z-index: 5;
 }
