@@ -37,36 +37,71 @@ $(document).ready(function(){
     });
     $('#save-test-form').submit(function(e){
         e.preventDefault();
-        var test = {
-            title:$('#test-name').val(),
-            questions:[]
-        };
-
-        $('.question').each(function(){
-            var question = {
-                text:$(this).find('.question-text').val(),
-                answers:[]
-            }
-
-            $($(this).find('.answer-group')).each(function(){
-                var answer = {
-                    text: $(this).find('.answer-text').val(),
-                    correct: $(this).find('.answer-value').is(':checked')?true:false
-                }
-                question.answers.push(answer);
-            });
-            test.questions.push(question);
-        });
-        console.log(test);
+        var test = formToObject();
+        if(test){
+            submitTest(test)
+        }else{
+            alert('objeto vacio');
+        }
     })
 })
+
+function formToObject(){
+    var test = {
+        title:$('#test-name').val(),
+        questions:[]
+    };
+
+    $('.question').each(function(){
+        var question = {
+            text:$(this).find('.question-text').val(),
+            answers:[]
+        }
+        $($(this).find('.answer-group')).each(function(){
+            var answer = {
+                text: $(this).find('.answer-text').val(),
+                correct: $(this).find('.answer-value').is(':checked')?true:false
+            }
+            question.answers.push(answer);
+        });
+        test.questions.push(question);
+    });
+
+    return jQuery.isEmptyObject(test)?false:test;
+}
+
+function submitTest(test){
+    var json_test = JSON.stringify(test);
+    $.ajax({
+        url:'/guardar-test',
+        method:'POST',
+        contentType: "application/json",
+        data: json_test
+    }).done(function(response){
+        if(response.status === 'ok'){
+            Swal.fire({
+                text: 'El test se ha guardado correctamente',
+                icon: 'success',
+                confirmButtonColor: '#05336B'
+             }).then(function(){
+                //redireccionar o lo que sea....
+             });
+        }else{
+            Swal.fire({
+                text: 'Ha ocurrido un problema al intentar guardar el test',
+                icon: 'error',
+                confirmButtonColor: '#05336B'
+             });
+        }
+    });
+}
 
 function addAnswer(question){
     var n_answers = $('#answer-container-'+ question +' .answer-group').length;
     if( n_answers < 5){
         var new_answer = `
         <div class="form-group answer-group">
-            <input type="text" name="answer-text-${question}-${(n_answers+1)}" class="form-control answer-text" placeholder="Introduce el texto de la respuesta">
+            <input type="text" name="answer-text-${question}-${(n_answers+1)}" class="form-control answer-text" placeholder="Introduce el texto de la respuesta" required>
             Correcta <input class="answer-value" type="radio" name="radio-value-correct-${question}" name="radio-value-${question}">
             </div>
         `;
