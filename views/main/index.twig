@@ -1,8 +1,28 @@
-{% extends "../base.twig" %}
+{% extends "../private_view.twig" %}
 
 {% block navbar %}
     {% include '../navbar.twig' %}
 {% endblock %}
 {% block body %}
-    <h1>Main</h1>
+    {% if error %}
+        <h3>Ha ocurrido un error, vuelvelo a  intentar</h3>
+    {% else %}
+        <span id="test-list">
+            {{ tests }}
+        </span>
+    {% endif %}
+   
+        <div class="col-sm-12 col-lg-8 offset-lg-2">
+            <div class="input-group mb-3">
+                <input id="search-user-input" type="text" class="form-control" placeholder="Introduce el nombre de un test">
+                <div class="input-group-append">
+                  <span onclick="searchTest()" class="input-group-text" id="search-button">Buscar</span>
+                </div>
+              </div>
+        </div>
+    
 {% endblock %}
+{% block scripts %}
+    {{ parent() }}  
+    <script src="js/main-page.js"></script>
+{% endblock css %}

@@ -19,7 +19,7 @@ passport.use('local-signin',new LocalStrategy({
     passReqToCallback:true
 },
 (req, username, password, done) => {
-    let message = { message: 'El usuario o la contraseña introducidos no son correctos' };    
+    var message = { message: 'El usuario o la contraseña introducidos no son correctos' };    
     
     User.findOne({ username: username }, function(err, user) {
       if (err) { return done(err); }
@@ -29,6 +29,8 @@ passport.use('local-signin',new LocalStrategy({
       if (!user.comparePassword(password)) {
         return done(null, false, message);
       }
+      user.connected = true;
+      user.save();
       return done(null, user);
   });
 }
@@ -44,7 +46,9 @@ passport.use(new GoogleStrategy({
     User.findOrCreate({ 
         email: profile.email, 
         username:`${profile.given_name} ${profile.family_name}` 
-    }, function (err, user) {
+    },function (err, user) {
+      user.connected = true;
+      user.save();
       return done(err, user);
     });
   }

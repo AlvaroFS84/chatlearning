@@ -9,7 +9,9 @@ const questionController = require('../controllers/testController');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const passport = require('passport');
+const gameController = require('../controllers/gameController');
 const isAuthenticated = require('../middleware/isAuthenticated');
+const isAuthenticatedAjax = require('../middleware/isAuthenticatedAjax');
 require('../passport/passport_config');
 
 
@@ -38,16 +40,21 @@ router.get('/google-signin',
 ));
 
 router.get( '/google-callback',
-    passport.authenticate( 'google', 
-        {
-            successRedirect: '/',
-            failureRedirect: '/failure'
-        }
-    )
+    passport.authenticate( 'google', {failureRedirect: '/login'}),
+    function(req,res){
+        res.redirect('/');
+    }
 );
 
 router.get('/perfil',isAuthenticated, profileController.showProfile);
 router.post('/guardar-test', testController.saveTest);
 router.get('/crear-test', isAuthenticated, testController.createTest);
+router.get('/jugar/:test_id',isAuthenticated, gameController.createLobby);
+router.get('/game/:game_id',isAuthenticated, gameController.lobby);
+router.get('/getPlayers', isAuthenticatedAjax, gameController.getConnectedPlayers);
+router.get('/getConnectedUsers',isAuthenticatedAjax, gameController.getConnectedUsers);
+
+//ajax
+router.get('/search-test', isAuthenticated, mainPageController.searchTest);
 
 module.exports = router

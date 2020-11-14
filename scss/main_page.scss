@@ -1,0 +1,16 @@
+.tests-container{
+    @media (min-width: 1025px) {
+        max-height: 600px;
+        overflow-y: scroll;
+        :-webkit-scrollbar{
+            display: none;
+        }
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }   
+
+}
+.input-group-text{
+    color: white;
+    background-color: $secondary-color;
+}

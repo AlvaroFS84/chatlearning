@@ -4,10 +4,11 @@ const findOrCreate = require('mongoose-findorcreate')
 const bcrypt = require('bcrypt');
 
 const userSchema = Schema({
-    username:String,
-    email:String,
-    password:String,
-    registrationDate: {type:Date, default: Date.now()}
+    username: String,
+    email: String,
+    password: String,
+    registrationDate: {type:Date, default: Date.now()},
+    connected: { type:Boolean, default:false}
 });
 
 userSchema.methods.encryptPassword = function (password){

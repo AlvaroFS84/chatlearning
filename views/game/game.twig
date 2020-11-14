@@ -1,0 +1,35 @@
+{% extends "../private_view.twig" %}
+
+{% block navbar %}
+    {% include '../navbar.twig' %}
+{% endblock %}
+{% block body %}
+    <h2>{{ test_title }}</h2>
+    
+    <div class="row">
+        <span class="col-sm-12 col-md-5">
+            <h3>Participantes</h3>
+            <div id="connected_players">
+            </div>
+        </span>
+        <div class="col-sm-12 col-md-5 offset-md-2" id="connected_users_container">
+            <h3>Usuarios Conectados</h3>
+            <span id="connected_users">
+            </span>
+            <div class="col-sm-12 col-lg-8 offset-lg-2">
+                <div class="input-group mb-3">
+                    <input id="search-user-input" type="text" class="form-control" placeholder="Introduce un nombre de usuario">
+                    <div class="input-group-append">
+                      <span onclick="search_users()" class="input-group-text" id="search-button">Buscar</span>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    
+
+{% endblock %}
+{% block scripts %}
+    {{ parent() }} 
+    <script src="/js/game.js"></script>
+{% endblock css %}

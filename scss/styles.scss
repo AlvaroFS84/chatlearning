@@ -1,13 +1,17 @@
 $primary-color: #5cdb95;
 $secondary-color: #05336B;
-$third-color: #EDF5E1;
+$third-color: white;
 $fourth-color: #379683;
 
 @import "fonts.scss";
 @import "navbar.scss";
 @import "create-test.scss";
+@import "main_page.scss";
+@import "game.scss";
 
-
+.container{
+    margin-top: 5%;
+}
 body{
     background-color:$primary-color;
     font-family: 'Noto Sans JP', sans-serif;
@@ -37,5 +41,15 @@ body{
     .page-title{
         margin-bottom: 15px;
     }
+}
+.test-item{
+    min-height: 55px;
+    background-color: $third-color;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $secondary-color;
+    margin-bottom: 5px;
 }
 
