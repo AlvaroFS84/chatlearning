@@ -20,7 +20,7 @@ router.get('/', isAuthenticated, mainPageController.showMainPage);
 router.get('/logout',mainPageController.logout);
 
 router.get('/login', loginController.login);
-router.post('/login',
+/*router.post('/login',
     passport.authenticate( 
         'local-signin', 
         { 
@@ -30,7 +30,20 @@ router.post('/login',
             badRequestMessage:'El usuario o contraseña utilizados no son correctos'
         }
     )
-);
+);*/
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local-signin', function(err, user, info) {
+        if (err) { return next(err); }
+        if (!user) { 
+            req.flash('error','El usuario o contraseña utilizados no son correctos');
+            return res.redirect('/login'); 
+        }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+        return res.redirect('/');
+      });
+    })(req, res, next);
+  });
 router.get('/registro', registerController.register);
 router.post('/registro', registerController.registerUser);
 
