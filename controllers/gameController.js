@@ -54,7 +54,7 @@ getConnectedPlayers = function(req,res){
 } 
 
 getConnectedUsers = function(req,res){
-    var fields = {connected: true};
+    var fields = {connected: true, username:{ $ne:req.user.username}};
     if(req.query.searched) 
         fields.username = new RegExp('.*'+req.query.searched+'.*', "i");
 
@@ -85,7 +85,7 @@ alreadyInGame = async function(user_id, game_id) {
 printPlayers = function(users){
     var html = ``;
     users.forEach(function(user){
-        html += `<span class="row test-item">
+        html += `<span class="row test-item" id="player-item-${user.user.username}">
                     <div class="col-sm-8">${user.user.username}</div>
                 </span>`;
     });

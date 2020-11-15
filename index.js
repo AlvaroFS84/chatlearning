@@ -90,5 +90,8 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
+  socket.on('user_loged',function(){
+    io.emit('user_loged');
+  });
 });
 

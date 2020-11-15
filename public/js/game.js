@@ -63,3 +63,12 @@ function send_invitation(receiver){
         text:'/game/' + game_id
     });
 }
+socket.on('user_loged', function(){
+    get_users();
+})
+
+window.onunload = unloadPage;
+
+function unloadPage(){
+    alert("unload event detected!");
+}

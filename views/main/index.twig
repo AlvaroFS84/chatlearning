@@ -11,7 +11,6 @@
             {{ tests }}
         </span>
     {% endif %}
-   
         <div class="col-sm-12 col-lg-8 offset-lg-2">
             <div class="input-group mb-3">
                 <input id="search-user-input" type="text" class="form-control" placeholder="Introduce el nombre de un test">
@@ -23,6 +22,11 @@
     
 {% endblock %}
 {% block scripts %}
-    {{ parent() }}  
+    {{ parent() }}
     <script src="js/main-page.js"></script>
-{% endblock css %}
+    {% if(messages['login'][0]) %}
+        <script>
+            socket.emit('user_loged');
+        </script>
+    {% endif %}
+{% endblock %}
