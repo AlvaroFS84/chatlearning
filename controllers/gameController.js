@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Game = require('../models/game');
 const Test = require('../models/test');
 const User = require('../models/user');
@@ -33,7 +34,7 @@ lobby = async function(req,res){
         game_id: game._id,
         test_title: game.test.title,
         connected_players_html:connected_players_html
-    });
+    });    
 }
 
 getConnectedPlayers = function(req,res){
@@ -53,23 +54,61 @@ getConnectedPlayers = function(req,res){
     })  
 } 
 
-getConnectedUsers = function(req,res){
+getConnectedUsers = async function(req,res){
     var fields = {connected: true, username:{ $ne:req.user.username}};
     if(req.query.searched) 
         fields.username = new RegExp('.*'+req.query.searched+'.*', "i");
 
-    User.find(fields).exec(function(err, users){
-        if(err){
-            res.send({status:'ko',message:'No se han podido obtener los usuarios conectados'});
-        }else{
+    await User.find(fields)
+        .then(users => {
             var html = printConnectedUsers(users);
-            res.send({
-                status:'ok',
-                html:html
-            });
-        }
-    })  
+                res.send({
+                    status:'ok',
+                    html:html
+                });
+        }).catch(err => {
+            res.send({status:'ko',message:'No se han podido obtener los usuarios conectados'});
+        });
 } 
+
+deteUserFromGame = async function(req,res){
+    //borra del array de jugadores al salir
+    await Game.findByIdAndUpdate(
+        { _id: req.body.game_id, },
+        { $pull: { users: { user: req.user._id } } },
+        { new: true }
+    ).then(async game =>{
+        //borrar el juego si se queda sin jugadoes
+        if(game.users.length == 0){
+            await Game.deleteOne({
+                _id:req.body.game_id
+            }).then(result => res.send(result))
+            .catch(err => res.send(err) );
+        }
+    })
+    .catch(err => res.send(err));
+}
+
+updateUserState = async function(req,res){
+    await Game.findOneAndUpdate(
+        {_id: req.body.game_id},
+        {$set: {"users.$[el].ready": true } },
+        { 
+          arrayFilters: [{ "el.user": req.user.id }],
+          new: true
+        }
+    ).then( await function(data){
+        Game.findById(req.body.game_id)
+        .then( game => {
+            var all_users_ready = checkIfAllReady ( game.users);
+            res.send({
+                all_users_ready:all_users_ready
+            });
+        })
+        .catch(err => console.log(err));
+    })
+    .catch(err => res.send())
+}
 
 //comprueba si el usuario ya esta en el juego
 alreadyInGame = async function(user_id, game_id) {
@@ -85,8 +124,10 @@ alreadyInGame = async function(user_id, game_id) {
 printPlayers = function(users){
     var html = ``;
     users.forEach(function(user){
+        var state = user.user.state?'Preparado':'No está preparado';
         html += `<span class="row test-item" id="player-item-${user.user.username}">
                     <div class="col-sm-8">${user.user.username}</div>
+                    <div class="col-sm-4 state">${state}</div>
                 </span>`;
     });
 
@@ -96,7 +137,7 @@ printPlayers = function(users){
 printConnectedUsers = function(users){
     var html = ``;
     users.forEach(function(user){
-        html += `<span class="row test-item">
+        html += `<span class="row test-item" id="user-item-${user.username}">
                     <div class="col-sm-8">${user.username}</div>
                     <div class="col-sm-4">
                         <button onclick="send_invitation('${user.username}')" class="test-item-button btn base-btn rounded-input">
@@ -109,4 +150,16 @@ printConnectedUsers = function(users){
     return html;
 }
 
-module.exports = { createLobby,lobby, getConnectedPlayers, getConnectedUsers }
+checkIfAllReady = function(users){
+    var all_ready = true;
+
+    users.forEach(function(user){
+        if( !user.ready)
+            all_ready = user.ready;
+    })
+
+    return all_ready;
+}
+
+
+module.exports = { createLobby,lobby, getConnectedPlayers, getConnectedUsers, deteUserFromGame, updateUserState }

@@ -2,7 +2,6 @@
 
 const express = require('express')
 const app = express()
-const { I18n } = require('i18n')
 const path = require('path');
 //const i18n = new I18n()
 const router = require('./routes/routes.js') 
@@ -17,6 +16,7 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
+const gameController = require('./controllers/gameController');
 
 var connectedUsers = []
 
@@ -87,11 +87,24 @@ io.on('connection', (socket) => {
     socket.join(data.game_id);
     io.to(data.game_id).emit('lobby_connected');
   });
+  socket.on('user_ready',function(data){
+    io.to(data.game_id).emit('user_ready', { username:data.username});
+  });
+
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
   socket.on('user_loged',function(){
     io.emit('user_loged');
   });
+  socket.on('user_loged_out',function(data){
+    io.emit('user_loged_out',data);
+  })
+  socket.on('user_out_of_game',function(data){
+    io.to(data.game_id).emit('user_out_of_game',data);
+  })
+  socket.on('all_users_ready', function(data){
+    io.to(data.game_id).emit('all_users_ready');
+  })
 });
 

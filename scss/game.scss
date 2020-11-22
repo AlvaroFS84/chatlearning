@@ -1,9 +1,14 @@
 #connected_users_container{
     max-height: 600px;
     overflow-y: scroll;
-    :-webkit-scrollbar{
-        display: none;
-    }
+   
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+}
+#connected_users_container::-webkit-scrollbar{
+    display: none;
+}
+
+#game{
+    display: none;
 }

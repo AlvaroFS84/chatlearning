@@ -2,7 +2,22 @@
 
 {% block scripts %}
     {{ parent() }}
-    <script src="/socket.io.js"></script>
+     <script src="/socket.io.js"></script>
+    <script>
+        function logout(){
+            Swal.fire({
+                title: 'Vas a cerra la sesión¿estas seguro?',
+                showDenyButton: true,
+                confirmButtonText: `Aceptar`,
+                denyButtonText: `Cancelar`,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    socket.emit('user_loged_out', { username:username });
+                    window.location.href = '/logout';
+                }
+            })
+        }
+    </script>
     <script>
         var socket = io('http://localhost:3000');
         socket.emit('user_join', { username:'{{username}}'});

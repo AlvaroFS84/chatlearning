@@ -6,11 +6,12 @@
 {% block body %}
     <h2>{{ test_title }}</h2>
     
-    <div class="row">
+    <div class="row" id="lobby">
         <span class="col-sm-12 col-md-5">
             <h4>Participantes</h4>
             <div id="connected_players">
             </div>
+            <div><button onclick="get_ready(this)" class="test-item-button btn base-btn rounded-input">Empezar</button></div>
         </span>
         <div class="col-sm-12 col-md-5 offset-md-2" id="connected_users_container">
             <h4>Usuarios Conectados</h4>
@@ -23,6 +24,16 @@
                       <span onclick="search_users()" class="input-group-text" id="search-button">Buscar</span>
                     </div>
                   </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" id="game">
+        <div class="row">
+            <div class="col-md-7 col-sm-12">
+
+            </div>
+            <div class="col-md-5 col-sm-12">
+
             </div>
         </div>
     </div>
