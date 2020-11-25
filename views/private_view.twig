@@ -3,67 +3,8 @@
 {% block scripts %}
     {{ parent() }}
      <script src="/socket.io.js"></script>
+     <script src="/js/private.js"></script>
     <script>
-        function logout(){
-            Swal.fire({
-                title: 'Vas a cerra la sesión¿estas seguro?',
-                showDenyButton: true,
-                confirmButtonText: `Aceptar`,
-                denyButtonText: `Cancelar`,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    socket.emit('user_loged_out', { username:username });
-                    window.location.href = '/logout';
-                }
-            })
-        }
-    </script>
-    <script>
-        var socket = io('http://localhost:3000');
-        socket.emit('user_join', { username:'{{username}}'});
-        socket.on('private',function(msg){
-            if(msg.type === 'invitation'){
-                var port = msg.port;
-                var text = msg.text
-                Swal.fire({
-                    title: 'Has recibido una invitación de '+msg.sender,
-                    showDenyButton: true,
-                    confirmButtonText: `Aceptar`,
-                    denyButtonText: `Rechazar`,
-                    }).then((result) => {
-                    if (result.isConfirmed) {
-                        socket.emit('private',{
-                            type: 'invitation_accepted',
-                            sender:msg.receiver,
-                            receiver:msg.sender,
-                            text: msg.receiver + ' ha aceptado la invitación'
-                        });
-                        var redirection_url =  location.protocol + "//"+window.location.hostname + ':' + port + text;
-                        window.location.href = redirection_url;
-                    } else if (result.isDenied) {
-                        socket.emit('private',{
-                            type: 'invitation_rejected',
-                            sender:msg.receiver,
-                            receiver:msg.sender,
-                            text: msg.receiver + ' no ha aceptado la invitación'
-                        });
-                    }
-                })
-            }else if(msg.type === 'invitation_accepted'){
-                Swal.fire({
-                    icon: 'success',
-                    text: msg.text
-                })
-            }else if(msg.type === 'invitation_rejected'){
-                Swal.fire({
-                    icon: 'error',
-                    text: msg.text
-                })
-            }
-        });
-        socket.on('message',function(data){
-        });
-        var username = '{{username}}' || null; 
         var game_id = '{{game_id}}' || null;
     </script>
 {% endblock css %}

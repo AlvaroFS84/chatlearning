@@ -10,5 +10,43 @@
 }
 
 #game{
-    display: none;
+    //display: none;
+    #chat-area{
+        background-color: white;
+        height: 500px;
+        border-radius: 5px;
+        border: solid 1px gray;
+        overflow-y: scroll;
+
+        .own-message-container{
+            text-align: right;
+        }
+        
+        .message{
+            display: inline-block;
+            padding: 10px;
+            background-color: lightblue;
+            border-radius: 10px;
+            margin: 10px;
+
+            &.own-message{
+                background-color: lightgreen;
+            }
+
+            .msg-author{
+                font-size: 14px;
+                font-weight: bold;
+            }
+            .msg-text{
+                word-wrap: break-word;
+            }
+        }
+        
+        #chat-area::-webkit-scrollbar{
+            display: none;
+        }
+    }
+    #chat-btn-send{
+        cursor: pointer;
+    }
 }

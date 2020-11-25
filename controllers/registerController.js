@@ -57,5 +57,9 @@ registerUser = (req,res) => {
     });
 }
 
+getUserName = function(req, res) {
+    res.send(req.user.username);
+}
 
-module.exports = {register, registerUser }
+
+module.exports = {register, registerUser, getUserName }

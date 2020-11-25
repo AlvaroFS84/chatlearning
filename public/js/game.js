@@ -1,3 +1,13 @@
+$(document).ready(function(){
+    $('#chat-btn-send').click(function(){
+        var message_text = $('#chat-input-message').val();
+        $('#chat-input-message').val('');
+        if(message_text.length > 0){
+            printOwnMessage(message_text);
+        }
+    });
+});
+
 if(game_id){
     get_players();
     get_users();
@@ -55,12 +65,20 @@ function search_users(){
 }
 
 function send_invitation(receiver){
-    socket.emit('private',{
-        type:'invitation',
-        receiver: receiver,
-        sender: username,
-        text:'/game/' + game_id
-    });
+    get_username()
+        .then(response => {
+            socket.emit('private',{
+                type:'invitation',
+                receiver: receiver,
+                sender: response,
+                text:'/game/' + game_id
+            });
+        }).catch(err =>{
+            Swal.fire({
+                icon: 'error',
+                text: 'No se ha podido obtener el nombre de usuario'
+            })
+        });
 }
 socket.on('user_loged', function(){
     get_users();
@@ -76,7 +94,16 @@ socket.on('user_loged_out', function(msg){
 })
 //al cerrar o irse del juego
 $(window).on('beforeunload', function(){
-    socket.emit('user_out_of_game', { username:username, game_id:game_id }); 
+    get_username()
+    .then(response => {
+        socket.emit('user_out_of_game', { username:response, game_id:game_id }); 
+    }).catch(err =>{
+        Swal.fire({
+            icon: 'error',
+            text: 'No se ha podido obtener el nombre de usuario'
+        })
+    });
+    
     $.ajax({
         url:'/delete_user_from_game',
         method:'POST',
@@ -114,12 +141,56 @@ function get_ready(clicked){
                     socket.emit('all_users_ready',{ game_id:game_id })
                 }
             });
-            socket.emit('user_ready',{
-                username: username,
-                game_id: game_id
-            });
+            get_username()
+            .then(response => {
+                socket.emit('user_ready',{
+                    username: response,
+                    game_id: game_id
+                });
+            }).catch(err =>{
+                Swal.fire({
+                    icon: 'error',
+                    text: 'No se ha podido obtener el nombre de usuario'
+                })
+            }); 
         }
       })
+}
+
+function printOwnMessage(text){
+    get_username()
+    .then(response => {
+        var html = `<div class="message-container own-message-container">
+            <div class="message own-message">
+                <div class="msg-author">${response}</div>
+                <div class="msg-text own-msg-text">${text}</div>
+            </div>
+        </div>`;
+        $('#chat-area').append(html);
+        $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
+
+        socket.emit('chat_msg',{
+            sender: response,
+            game_id:game_id,
+        });
+        
+    }).catch(err =>{
+        Swal.fire({
+            icon: 'error',
+            text: 'No se ha podido obtener el nombre de usuario'
+        })
+    });  
+}
+
+function printReceivedMessage(data){
+    var html = ` <div class="message-container">
+                    <div class="message">
+                        <div class="msg-author">${data.sender}</div>
+                        <div class="msg-text">${data.message}</div>
+                    </div>
+                </div>`;
+    $('#chat-area').append(html);
+    $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
 }
 socket.on('user_out_of_game',function(data){
     console.log(data);
@@ -135,4 +206,7 @@ socket.on('user_ready',function(data){
 socket.on('all_users_ready', function(){
     $('#lobby').hide();
     $('#game').show()
+})
+socket.on('chat_msg', function(data){
+    printReceivedMessage(data);
 })

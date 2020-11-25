@@ -71,7 +71,9 @@ router.get('/getConnectedUsers',isAuthenticatedAjax, gameController.getConnected
 
 //ajax
 router.get('/search-test', isAuthenticated, mainPageController.searchTest);
-router.post('/delete_user_from_game', isAuthenticatedAjax, gameController.deteUserFromGame)
-router.post('/update_user_state', isAuthenticatedAjax, gameController.updateUserState)
+router.post('/delete_user_from_game', isAuthenticatedAjax, gameController.deteUserFromGame);
+router.post('/update_user_state', isAuthenticatedAjax, gameController.updateUserState);
+router.get('/get_username', isAuthenticatedAjax, registerController.getUserName);
+
 
 module.exports = router

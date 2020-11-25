@@ -16,7 +16,6 @@ const passport = require('passport');
 const bodyParser = require('body-parser');
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
-const gameController = require('./controllers/gameController');
 
 var connectedUsers = []
 
@@ -106,5 +105,11 @@ io.on('connection', (socket) => {
   socket.on('all_users_ready', function(data){
     io.to(data.game_id).emit('all_users_ready');
   })
+  socket.on('chat_msg', function(data){
+    socket.to(data.game_id).emit("chat_msg", data);
+  })
 });
+
+//para pruebas
+app.get('/chat', (req,res) => res.render('./game/game.twig'));
 
