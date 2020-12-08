@@ -84,7 +84,7 @@ function submitTest(test){
                 icon: 'success',
                 confirmButtonColor: '#05336B'
              }).then(function(){
-                //redireccionar o lo que sea....
+                document.location.href = "/";
              });
         }else{
             Swal.fire({

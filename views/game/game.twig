@@ -28,8 +28,21 @@
         </div>
     </div>
     <div class="row" id="game">
-        <div class="col-md-7 col-sm-12">
-            aaaa
+        <div class="col-md-7 col-sm-12" id="test-div">
+        {% for i, question in game.test.questions %}
+            <div id="question-{{ i }}" class="question {% if i == 0 %} current-question {% endif %}">
+                <h4 class="question-text">{{ question.text }}</h4>
+                {% for j, answer in question.answers %}
+                    <input class="answer-radio" type="radio"  id="question-{{i}}-answer-{{j}}" name="answer-question-{{i}}" value="{{j}}">
+                    <label for="answer-question-{{j}}">{{ answer.text }}</label><br>
+                {% endfor %}
+                {% if i < (game.test.questions-1) %}
+                <button id="button-next-{{i}}" class="test-item-button btn base-btn question-btn rounded-input answer-btn next-btn" disabled >Siguiente</button>
+                {% else %}
+                <button id="button-next-{{i}}" class="test-item-button btn base-btn question-btn rounded-input answer-btn  end-btn" disabled >Finalizar</button>
+                {% endif %}
+            </div> 
+        {% endfor %}
         </div>
         <div class="col-md-5 col-sm-12">
             <div id="chat-area"></div>

@@ -73,7 +73,10 @@ router.get('/getConnectedUsers',isAuthenticatedAjax, gameController.getConnected
 router.get('/search-test', isAuthenticated, mainPageController.searchTest);
 router.post('/delete_user_from_game', isAuthenticatedAjax, gameController.deteUserFromGame);
 router.post('/update_user_state', isAuthenticatedAjax, gameController.updateUserState);
+router.post('/update_game_state', isAuthenticatedAjax, gameController.updateGameState);
+router.get('/get_game_state', isAuthenticatedAjax, gameController.getGameState);
 router.get('/get_username', isAuthenticatedAjax, registerController.getUserName);
+router.post('/calculate_result', isAuthenticatedAjax, gameController.calculateGameResult);
 
 
 module.exports = router

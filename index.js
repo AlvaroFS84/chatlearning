@@ -101,13 +101,25 @@ io.on('connection', (socket) => {
   })
   socket.on('user_out_of_game',function(data){
     io.to(data.game_id).emit('user_out_of_game',data);
-  })
+  });
   socket.on('all_users_ready', function(data){
     io.to(data.game_id).emit('all_users_ready');
-  })
+  });
   socket.on('chat_msg', function(data){
     socket.to(data.game_id).emit("chat_msg", data);
-  })
+  });
+  socket.on('question_answered', function(data){
+    socket.to(data.game_id).emit("question_answered", data);
+  });
+  socket.on('next_question', function(data){
+    socket.to(data.game_id).emit( "next_question", data );
+  });
+  socket.on('game_finished', function(data){
+    io.to(data.game_id).emit('game_finished',data);
+  });
+  socket.on('update_game_answers', function(data){
+    socket.to(data.game_id).emit("update_game_answers", data);
+  });
 });
 
 //para pruebas

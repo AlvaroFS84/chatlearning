@@ -19,22 +19,28 @@ createLobby = async function(req,res){
 lobby = async function(req,res){
     var game_id = req.params.game_id;
     var game =  await Game.findById(game_id).populate('test').populate('users.user');
-    var exists = await alreadyInGame(req.user._id, game_id, game.users); 
-    if( !exists){
-        game.users.push({
-            user: req.user,
-            calification: 0
-        });
-        await game.save();
-    }
-    var connected_players_html = printPlayers(game.users);
+    if(game.state == 'created'){
+        var exists = await alreadyInGame(req.user._id, game_id, game.users); 
+        if( !exists){
+            game.users.push({
+                user: req.user,
+                calification: 0
+            });
+            await game.save();
+        }
+        var connected_players_html = printPlayers(game.users);
 
-    res.render('game/game.twig', { 
-        username: req.user.username,
-        game_id: game._id,
-        test_title: game.test.title,
-        connected_players_html:connected_players_html
-    });    
+        res.render('game/game.twig', { 
+            username: req.user.username,
+            game_id: game._id,
+            test_title: game.test.title,
+            connected_players_html:connected_players_html,
+            game:game
+        });    
+    }else{
+        res.redirect('/');
+    }
+    
 }
 
 getConnectedPlayers = function(req,res){
@@ -110,6 +116,54 @@ updateUserState = async function(req,res){
     .catch(err => res.send())
 }
 
+updateGameState = function(req,res){
+    Game.findOneAndUpdate(
+        {_id: req.body.game_id},
+        { state: req.body.game_state}
+    ).then( game => res.send(game))
+     .catch( err => res.send(err));
+}
+
+getGameState = async function(req,res){
+    try{
+        var game = await Game.findById(req.body.game_id);
+        res.send({
+            state: game.state,
+            status: 'ok'
+        });
+    }catch(err){
+        res.send({
+            status: 'ko',
+            error: err
+        });
+    }
+    
+
+}
+
+calculateGameResult = async function(req, res){
+    try{
+        var game = await  Game.findById(req.body.game_id).populate('test');
+        game.state = 'finished';
+        game.calification = getCalification( game.test.questions, JSON.parse(req.body.game_answers)).toFixed(2);
+        game.answers = JSON.parse(req.body.game_answers);
+        await game.save();
+
+        res.send({
+            status:'ok',
+            calification:game.calification,
+        })
+
+    }catch(err){
+        res.send({
+            status: 'ko',
+            error: err.message
+        });
+    }
+    
+
+}
+
 //comprueba si el usuario ya esta en el juego
 alreadyInGame = async function(user_id, game_id) {
     var result = await Game.findById(game_id).find({ 
@@ -161,5 +215,40 @@ checkIfAllReady = function(users){
     return all_ready;
 }
 
+getCalification = function( game_answers, user_answers){
+    var calification = 0;
 
-module.exports = { createLobby,lobby, getConnectedPlayers, getConnectedUsers, deteUserFromGame, updateUserState }
+    user_answers.forEach(function(user_answer,index){
+        if(user_answer == getCorrectAnswer(game_answers[index]))
+            calification++;
+    });
+
+    return calification * 10 / user_answers.length;
+}
+
+/**
+ * Obtiene el indice de la respuesta correcta
+ */
+getCorrectAnswer = function(stored_answers){
+    var correct = null;
+    stored_answers.answers.forEach( function(answer, index){
+        if(answer.correct){
+            correct = index;
+        }
+    });
+
+    return correct;
+}
+
+
+module.exports = { 
+    createLobby,
+    lobby, 
+    getConnectedPlayers,
+    getConnectedUsers,
+    deteUserFromGame,
+    updateUserState,
+    updateGameState,
+    getGameState,
+    calculateGameResult 
+}

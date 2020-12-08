@@ -10,7 +10,20 @@
 }
 
 #game{
-    //display: none;
+    display: none;
+    #test-div{
+        background-color: white;
+        border-radius: 5px;
+        border: solid 1px gray;
+
+        .question-text{
+            color: $secondary-color;
+            margin-bottom: 30px;
+        }
+        .question-btn{
+            width: 90px;
+        }
+    }
     #chat-area{
         background-color: white;
         height: 500px;
@@ -48,5 +61,17 @@
     }
     #chat-btn-send{
         cursor: pointer;
+    }
+    .question{
+        display: none;
+        padding: 35px;
+
+        &.current-question{
+            display: inherit;
+        }
+
+        .answer-btn{
+            margin-top: 25px;
+        }
     }
 }
