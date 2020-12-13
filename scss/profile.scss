@@ -1,0 +1,25 @@
+#test-results{
+    max-height: 500px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+
+    .test-result-info{
+        margin-bottom: 10px;
+        .test-result-title{
+            background-color: $secondary-color;
+            color: white;
+            padding: 5px 5px 5px 8px;
+            border-radius: 5px 5px 0px 0px;
+        }
+        .test-result-calification{
+            background-color: white;
+            border-radius: 0px 0px 5px 5px;
+            padding: 10px;
+            color: $secondary-color;
+        }
+    }
+    
+}
+    
+       

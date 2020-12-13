@@ -79,15 +79,16 @@ getConnectedUsers = async function(req,res){
 
 deteUserFromGame = async function(req,res){
     //borra del array de jugadores al salir
-    await Game.findByIdAndUpdate(
-        { _id: req.body.game_id, },
+    await Game.findOneAndUpdate(
+        { _id: req.body.game_id, state:{$in:['created','playing']} },
         { $pull: { users: { user: req.user._id } } },
         { new: true }
     ).then(async game =>{
-        //borrar el juego si se queda sin jugadoes
+        //borrar el juego si se queda sin jugadores y no ha finalizado
         if(game.users.length == 0){
             await Game.deleteOne({
-                _id:req.body.game_id
+                _id:req.body.game_id,
+                state:{$in:['created','playing']}
             }).then(result => res.send(result))
             .catch(err => res.send(err) );
         }
@@ -192,8 +193,8 @@ printConnectedUsers = function(users){
     var html = ``;
     users.forEach(function(user){
         html += `<span class="row test-item" id="user-item-${user.username}">
-                    <div class="col-sm-8">${user.username}</div>
-                    <div class="col-sm-4">
+                    <div class="col-8">${user.username}</div>
+                    <div class="col-4">
                         <button onclick="send_invitation('${user.username}')" class="test-item-button btn base-btn rounded-input">
                             Invitar
                         </button>

@@ -1,12 +1,26 @@
 var game_answers  = [];
 
 $(document).ready(function(){
+    $("#search-user-input").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            search_users();
+        }
+    });
+
     $('#chat-btn-send').click(function(){
-        debugger;
         var message_text = $('#chat-input-message').val();
         $('#chat-input-message').val('');
         if(message_text.length > 0){
             printOwnMessage(message_text);
+        }
+    });
+    $("#chat-input-message").on('keyup', function (e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            var message_text = $(this).val();
+            $(this).val('');
+            if(message_text.length > 0){
+                printOwnMessage(message_text);
+            }
         }
     });
 

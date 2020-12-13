@@ -1,3 +1,15 @@
+@media (max-width: 768px) {
+    .game-container{
+       padding-left: 8%;
+       padding-right: 8%;
+    }
+
+    .test-item-button{
+        margin: 10px 0px;
+    }
+}
+
+
 #connected_users_container{
     max-height: 600px;
     overflow-y: scroll;
@@ -15,6 +27,7 @@
         background-color: white;
         border-radius: 5px;
         border: solid 1px gray;
+        margin-bottom: 15px;
 
         .question-text{
             color: $secondary-color;

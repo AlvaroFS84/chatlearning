@@ -68,6 +68,7 @@ router.get('/jugar/:test_id',isAuthenticated, gameController.createLobby);
 router.get('/game/:game_id',isAuthenticated, gameController.lobby);
 router.get('/getPlayers', isAuthenticatedAjax, gameController.getConnectedPlayers);
 router.get('/getConnectedUsers',isAuthenticatedAjax, gameController.getConnectedUsers);
+router.post('/update_profile', isAuthenticated, profileController.updateProfile)
 
 //ajax
 router.get('/search-test', isAuthenticated, mainPageController.searchTest);

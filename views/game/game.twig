@@ -6,7 +6,7 @@
 {% block body %}
     <h2>{{ test_title }}</h2>
     
-    <div class="row" id="lobby">
+    <div class="row game-container" id="lobby">
         <span class="col-sm-12 col-md-5">
             <h4>Participantes</h4>
             <div id="connected_players">
@@ -21,13 +21,13 @@
                 <div class="input-group mb-3">
                     <input id="search-user-input" type="text" class="form-control" placeholder="Introduce un nombre de usuario">
                     <div class="input-group-append">
-                      <span onclick="search_users()" class="input-group-text" id="search-button">Buscar</span>
+                      <span onclick="search_users()" class="input-group-text search-button" >Buscar</span>
                     </div>
                   </div>
             </div>
         </div>
     </div>
-    <div class="row" id="game">
+    <div class="row game-container" id="game">
         <div class="col-md-7 col-sm-12" id="test-div">
         {% for i, question in game.test.questions %}
             <div id="question-{{ i }}" class="question {% if i == 0 %} current-question {% endif %}">

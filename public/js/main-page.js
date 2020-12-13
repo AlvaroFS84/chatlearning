@@ -1,35 +1,35 @@
 $(document).ready(function(){
 
-    function searchTest(){
-        var searched = $('#search-input').val();
-        
-        $.ajax({
-            url:'/search-test',
-            method: 'GET',
-            data:{
-                searched:searched
-            }
-        }).done(function(response){
-            if(response.data.error){
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: response.data.error,
-                  })
-            }else{
-                $('#test-list').empty();
-                $('#test-list').append(response.data.html);
-            }
-        });    
-    }
-
-    $('#search-input').keyup(function(e){
+    $('#search-user-input').keyup(function(e){
         var code = e.keyCode || e.which;
         if(code == 13){
             searchTest();            
         }
     });
 });
+
+function searchTest(){
+    var searched = $('#search-user-input').val();
+    
+    $.ajax({
+        url:'/search-test',
+        method: 'GET',
+        data:{
+            searched:searched
+        }
+    }).done(function(response){
+        if(response.data.error){
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: response.data.error,
+              })
+        }else{
+            $('#test-list').empty();
+            $('#test-list').append(response.data.html);
+        }
+    });    
+}
 
 function go_to_test(test_id){
     Swal.fire({

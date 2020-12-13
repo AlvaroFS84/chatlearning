@@ -27,14 +27,14 @@ const Test = require('../models/test');
 
         tests.forEach(function(test){
             var html_item = `
-            <div class="col-sm-12 test-item" data-test-id="${ test._id }">
-                    <div class="col-sm-6 test-item-title">
+            <div class="row test-item" data-test-id="${ test._id }">
+                    <div class="col-6 col-sm-6 test-item-title">
                         ${ test.title }
                     </div>
-                    <div class="col-sm-3 test-item-user">
+                    <div class="col-6 col-sm-3 test-item-user">
                         ${ test.user.username }
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-6 col-sm-3">
                         <button onclick="go_to_test('${ test._id}')" class="test-item-button btn base-btn rounded-input">
                             Seleccionar
                         </button>

@@ -1,4 +1,5 @@
-const User = require('../models/user')
+const User = require('../models/user');
+const { updateUserState } = require('./gameController');
 
 
 
@@ -60,6 +61,8 @@ registerUser = (req,res) => {
 getUserName = function(req, res) {
     res.send(req.user.username);
 }
+
+
 
 
 module.exports = {register, registerUser, getUserName }

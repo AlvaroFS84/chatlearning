@@ -8,6 +8,7 @@ const gameSchema = Schema({
     state: { type: String, default:'created'},
     answers: [],
     calification: { type: Number, default: 0},
+    creationDate: {type:Date, default: Date.now()},
     finished: Boolean
 });
 
