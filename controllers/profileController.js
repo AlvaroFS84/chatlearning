@@ -11,7 +11,7 @@ const Game = require('../models/game');
                     'user':req.user._id
                 }
             },
-            state:'finished'
+            'state':'finished'
         }).populate('test');
 
 
