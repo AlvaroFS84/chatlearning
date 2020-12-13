@@ -1,0 +1,236 @@
+@font-face {
+  font-family: "Noto Sans JP";
+  src: url("../fonts/NotoSansJP-Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+.custom-navbar {
+  background-color: #05336B;
+}
+.custom-navbar .custom-navbar-brand {
+  color: white;
+  font-size: 40px;
+  font-family: "Noto Sans JP";
+}
+@media (max-width: 768px) {
+  .custom-navbar .custom-navbar-brand {
+    font-size: 20px;
+  }
+}
+.custom-navbar .user-name-text {
+  color: white;
+}
+.custom-navbar .dropdown {
+  margin-right: 5%;
+}
+.custom-navbar #dropdownMenuButton, .custom-navbar .dropdown-item, .custom-navbar .dropdown-menu {
+  background-color: #379683;
+}
+.custom-navbar .dropdown-item {
+  color: white;
+}
+.custom-navbar .dropdown-item:hover {
+  color: black;
+  background-color: white;
+}
+
+.test-creation-menu .floating-button-row {
+  position: fixed;
+  bottom: 4%;
+  right: 7%;
+  width: 160px !important;
+  z-index: 5;
+}
+.test-creation-menu .question-button-row {
+  text-align: center;
+  margin-bottom: 12px;
+}
+.test-creation-menu .question-button-row span {
+  width: 200px !important;
+}
+.test-creation-menu .answers-title {
+  margin-top: 25px;
+}
+.test-creation-menu .answer-value {
+  margin-top: 10px;
+}
+.test-creation-menu .add-delete-button {
+  margin-bottom: 10px;
+}
+.test-creation-menu #form-submit {
+  margin-bottom: 5%;
+}
+
+@media (min-width: 1025px) {
+  .tests-container {
+    max-height: 600px;
+    /* overflow-y: scroll; */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+  .tests-container ::-webkit-scrollbar {
+    display: none;
+  }
+}
+.input-group-text {
+  color: white;
+  background-color: #05336B;
+}
+
+.search-button {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .game-container {
+    padding-left: 8%;
+    padding-right: 8%;
+  }
+
+  .test-item-button {
+    margin: 10px 0px;
+  }
+}
+#connected_users_container {
+  max-height: 600px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+
+#connected_users_container::-webkit-scrollbar {
+  display: none;
+}
+
+#game {
+  display: none;
+}
+#game #test-div {
+  background-color: white;
+  border-radius: 5px;
+  border: solid 1px gray;
+  margin-bottom: 15px;
+}
+#game #test-div .question-text {
+  color: #05336B;
+  margin-bottom: 30px;
+}
+#game #test-div .question-btn {
+  width: 90px;
+}
+#game #chat-area {
+  background-color: white;
+  height: 500px;
+  border-radius: 5px;
+  border: solid 1px gray;
+  overflow-y: scroll;
+}
+#game #chat-area .own-message-container {
+  text-align: right;
+}
+#game #chat-area .message {
+  display: inline-block;
+  padding: 10px;
+  background-color: lightblue;
+  border-radius: 10px;
+  margin: 10px;
+}
+#game #chat-area .message.own-message {
+  background-color: lightgreen;
+}
+#game #chat-area .message .msg-author {
+  font-size: 14px;
+  font-weight: bold;
+}
+#game #chat-area .message .msg-text {
+  word-wrap: break-word;
+}
+#game #chat-area #chat-area::-webkit-scrollbar {
+  display: none;
+}
+#game #chat-btn-send {
+  cursor: pointer;
+}
+#game .question {
+  display: none;
+  padding: 35px;
+}
+#game .question.current-question {
+  display: inherit;
+}
+#game .question .answer-btn {
+  margin-top: 25px;
+}
+
+#test-results {
+  max-height: 500px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+#test-results .test-result-info {
+  margin-bottom: 10px;
+}
+#test-results .test-result-info .test-result-title {
+  background-color: #05336B;
+  color: white;
+  padding: 5px 5px 5px 8px;
+  border-radius: 5px 5px 0px 0px;
+}
+#test-results .test-result-info .test-result-calification {
+  background-color: white;
+  border-radius: 0px 0px 5px 5px;
+  padding: 10px;
+  color: #05336B;
+}
+
+.container {
+  margin-top: 5%;
+}
+
+body {
+  background-color: #5cdb95;
+  font-family: "Noto Sans JP", sans-serif;
+}
+body .base-btn {
+  background-color: #05336B;
+  color: white;
+  width: 100%;
+}
+body .base-btn:hover {
+  color: white;
+}
+body a {
+  color: #05336B;
+}
+body .login-container {
+  padding-top: 18%;
+}
+body .rs-button {
+  margin-top: 10px;
+}
+body .rounded-input {
+  border-radius: 20px;
+}
+body .page-title {
+  margin-bottom: 15px;
+}
+
+.test-item {
+  min-height: 55px;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #05336B;
+  margin-bottom: 5px;
+}
+
+/*# sourceMappingURL=styles.css.map */
