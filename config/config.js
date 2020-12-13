@@ -1,4 +1,4 @@
-require('custom-env').env('local')
+require('custom-env').env('production')
 
 const config = {
     env: process.env.NODE_ENV || development,
