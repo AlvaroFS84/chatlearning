@@ -6,7 +6,6 @@ const path = require('path');
 //const i18n = new I18n()
 const router = require('./routes/routes.js') 
 const config = require('./config/config.js')
-var morgan = require('morgan')
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 const session = require('express-session')
