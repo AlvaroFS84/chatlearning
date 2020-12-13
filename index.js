@@ -54,7 +54,6 @@ db.once('open', function() {
 
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
   socket.on('user_join', function(msg){
     connectedUsers[msg.username] = socket;
     //connectedUsers['aaa'].emit('private','private message');
@@ -90,9 +89,9 @@ io.on('connection', (socket) => {
     io.to(data.game_id).emit('user_ready', { username:data.username});
   });
 
-  socket.on('disconnect', () => {
+  /*socket.on('disconnect', () => {
     console.log('user disconnected');
-  });
+  });*/
   socket.on('user_loged',function(){
     io.emit('user_loged');
   });
