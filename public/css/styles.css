@@ -190,6 +190,10 @@
   color: #05336B;
 }
 
+#test-results::-webkit-scrollbar {
+  display: none;
+}
+
 .container {
   margin-top: 5%;
 }
