@@ -20,8 +20,9 @@ function logout() {
     }
   });
 }
-//esto falla si no se cambia a la plantilla
-var socket = io("http://localhost:3000");
+
+var url = window.location.protocol+'//'+window.location.hostname + (window.location.hostname=='localhost'?":3000":'')
+var socket = io(url);
 get_username()
   .then(response => {
     socket.emit("user_join", { username: response });
