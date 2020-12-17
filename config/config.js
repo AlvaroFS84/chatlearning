@@ -1,7 +1,6 @@
-require('custom-env').env('production')
+require('custom-env').env(process.env.NODE_ENV)
 
 const config = {
-    env: process.env.NODE_ENV || development,
     port: process.env.PORT || 3000, 
     db_connect: process.env.DB_CONNECT,
     session_secret:process.env.SESSION_SECRET,
