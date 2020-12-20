@@ -58,11 +58,18 @@ registerUser = (req,res) => {
     });
 }
 
-getUserName = function(req, res) {
-    res.send(req.user.username);
+getUserData = function(req, res) {
+    var data = {
+        id: req.user._id,
+        username:req.user.username,
+        connected: req.user.connected,
+        email: req.user.email,
+        registrationDate: req.user.registrationDate
+    };
+    res.send(data);
 }
 
 
 
 
-module.exports = {register, registerUser, getUserName }
+module.exports = {register, registerUser, getUserData }

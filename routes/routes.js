@@ -63,7 +63,7 @@ router.post('/delete_user_from_game', isAuthenticatedAjax, gameController.deteUs
 router.post('/update_user_state', isAuthenticatedAjax, gameController.updateUserState);
 router.post('/update_game_state', isAuthenticatedAjax, gameController.updateGameState);
 router.get('/get_game_state', isAuthenticatedAjax, gameController.getGameState);
-router.get('/get_username', isAuthenticatedAjax, registerController.getUserName);
+router.get('/get_user_data', isAuthenticatedAjax, registerController.getUserData);
 router.post('/calculate_result', isAuthenticatedAjax, gameController.calculateGameResult);
 
 

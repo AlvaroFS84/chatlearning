@@ -33,8 +33,6 @@ app.use(passport.session());
 
 //rutas
 app.use(router);
-//fix inicio de sesión con Google
-app.set('etag', false)
 
 
 mongoose.connect( config.db_connect, {
@@ -89,10 +87,6 @@ io.on('connection', (socket) => {
   socket.on('user_ready',function(data){
     io.to(data.game_id).emit('user_ready', { username:data.username});
   });
-
-  /*socket.on('disconnect', () => {
-    console.log('user disconnected');
-  });*/
   socket.on('user_loged',function(){
     io.emit('user_loged');
   });

@@ -86,6 +86,10 @@
   cursor: pointer;
 }
 
+.swal2-confirm {
+  background-color: #05336B !important;
+}
+
 @media (max-width: 768px) {
   .game-container {
     padding-left: 8%;
@@ -195,6 +199,11 @@
 
 #test-results::-webkit-scrollbar {
   display: none;
+}
+
+.update-advice {
+  font-size: 12px;
+  font-style: italic;
 }
 
 .container {

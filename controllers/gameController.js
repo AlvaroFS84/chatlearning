@@ -180,7 +180,7 @@ printPlayers = function(users){
     var html = ``;
     users.forEach(function(user){
         var state = user.user.state?'Preparado':'No está preparado';
-        html += `<span class="row test-item" id="player-item-${user.user.username}">
+        html += `<span class="row test-item" id="player-item-${user.user._id}">
                     <div class="col-sm-8">${user.user.username}</div>
                     <div class="col-sm-4 state">${state}</div>
                 </span>`;
@@ -192,7 +192,7 @@ printPlayers = function(users){
 printConnectedUsers = function(users){
     var html = ``;
     users.forEach(function(user){
-        html += `<span class="row test-item" id="user-item-${user.username}">
+        html += `<span class="row test-item" id="user-item-${user._id}">
                     <div class="col-8">${user.username}</div>
                     <div class="col-4">
                         <button onclick="send_invitation('${user.username}')" class="test-item-button btn base-btn rounded-input">

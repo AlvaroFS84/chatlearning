@@ -6,9 +6,12 @@ function logout() {
     denyButtonText: `Cancelar`,
   }).then((result) => {
     if (result.isConfirmed) {
-      get_username()
+      get_user_data()
         .then(response => {
-          socket.emit("user_loged_out", { username: response });
+          socket.emit("user_loged_out", { 
+            username: response.username,
+            id: response.id
+          });
           window.location.href = "/logout";
         }).catch(err =>{
           Swal.fire({
@@ -23,9 +26,9 @@ function logout() {
 
 var url = window.location.protocol+'//'+window.location.hostname + (window.location.hostname=='localhost'?":3000":'')
 var socket = io(url);
-get_username()
+get_user_data()
   .then(response => {
-    socket.emit("user_join", { username: response });
+    socket.emit("user_join", { username: response.username });
   }).catch(err =>{
     Swal.fire({
         icon: 'error',
@@ -80,10 +83,10 @@ socket.on("private", function (msg) {
 });
 socket.on("message", function (data) {});
 
-function get_username(){
+function get_user_data(){
   var user_promise = new Promise( (resolve, reject) => {
       $.ajax({
-          url:'/get_username',
+          url:'/get_user_data',
       }).done(function(data, textStatus, jqXhr){
          resolve(data);
       }).fail( function(err){

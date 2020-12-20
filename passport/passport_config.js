@@ -49,6 +49,7 @@ passport.use(new GoogleStrategy({
     },async function (err, user) {
       user.connected = true;
       user.google_user = true;
+      req.flash('login', true);
       await user.save();
       return done(err, user);
     });

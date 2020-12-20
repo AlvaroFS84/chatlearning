@@ -145,12 +145,12 @@ function search_users(){
 }
 
 function send_invitation(receiver){
-    get_username()
+    get_user_data()
         .then(response => {
             socket.emit('private',{
                 type:'invitation',
                 receiver: receiver,
-                sender: response,
+                sender: response.username,
                 text:'/game/' + game_id
             });
         }).catch(err =>{
@@ -164,19 +164,18 @@ socket.on('user_loged', function(){
     get_users();
 })
 socket.on('user_loged_out', function(msg){
-    console.log(msg.username + 'ha salido');
-    if($('#player-item-'+ msg.username ) !== undefined){
-        $('#player-item-'+ msg.username).remove();
+    if($('#player-item-'+ msg.id ) !== undefined){
+        $('#player-item-'+ msg.id).remove();
     }
-    if($('#user-item-'+ msg.username ) !== undefined){
-        $('#user-item-'+ msg.username).remove();
+    if($('#user-item-'+ msg.id ) !== undefined){
+        $('#user-item-'+ msg.id).remove();
     }
 })
 //al cerrar o irse del juego
 $(window).on('beforeunload', function(){
-    get_username()
+    get_user_data()
     .then(response => {
-        socket.emit('user_out_of_game', { username:response, game_id:game_id }); 
+        socket.emit('user_out_of_game', { username:response.username, game_id:game_id }); 
     }).catch(err =>{
         Swal.fire({
             icon: 'error',
@@ -221,10 +220,10 @@ function get_ready(clicked){
                     socket.emit('all_users_ready',{ game_id:game_id })
                 }
             });
-            get_username()
+            get_user_data()
             .then(response => {
                 socket.emit('user_ready',{
-                    username: response,
+                    username: response.username,
                     game_id: game_id
                 });
             }).catch(err =>{
@@ -238,11 +237,11 @@ function get_ready(clicked){
 }
 
 function printOwnMessage(text){
-    get_username()
+    get_user_data()
     .then(response => {
         var html = `<div class="message-container own-message-container">
             <div class="message own-message">
-                <div class="msg-author">${response}</div>
+                <div class="msg-author">${response.username}</div>
                 <div class="msg-text own-msg-text">${text}</div>
             </div>
         </div>`;
@@ -250,7 +249,7 @@ function printOwnMessage(text){
         $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
 
         socket.emit('chat_msg',{
-            sender: response,
+            sender: response.username,
             game_id:game_id,
             message: text
         }); 
