@@ -34,7 +34,7 @@ app.use(passport.session());
 //rutas
 app.use(router);
 //fix inicio de sesión con Google
-app.disable('etag');
+app.set('etag', false)
 
 
 mongoose.connect( config.db_connect, {

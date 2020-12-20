@@ -41,6 +41,9 @@
                     <input class="btn base-btn rounded-input" type="submit" value="Enviar">
                 </div>
                 {% endif %}
+                {% if google_user %}
+                <p class="update-advice">Los usuarios registrados a través de Google no pueden modificar sus datos</p>
+                {% endif %}
             </form>
         </div>
         <div class="col-md-4 offset-md-3 col-sm-12">

@@ -26,6 +26,14 @@ const Game = require('../models/game');
     updateProfile = async function(req,res){
 
         var data = {};
+        var user_games = await Game.find({
+            'users':{
+                $elemMatch:{
+                    'user':req.user._id
+                }
+            },
+            'state':'finished'
+        }).populate('test');
 
         if(req.body.username.length > 0 )
             req.user.username = req.body.username;
@@ -34,6 +42,8 @@ const Game = require('../models/game');
         
         data.username = req.user.username;
         data.email = req.user.email;
+        data.user_games = user_games;
+        data.google_user =  req.user.google_user;
        
         if( req.body.edit_password.length >0 && bcrypt.compareSync( req.body.edit_password,  req.user.password)){            
             req.user.password = bcrypt.hashSync( req.body.new_password, bcrypt.genSaltSync(10));

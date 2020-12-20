@@ -5,18 +5,16 @@ const loginController = require('../controllers/loginController');
 const profileController = require('../controllers/profileController');
 const mainPageController = require('../controllers/mainPageController');
 const testController = require('../controllers/testController');
-const questionController = require('../controllers/testController');
-const bodyParser = require('body-parser');
-const session = require('express-session');
 const passport = require('passport');
 const gameController = require('../controllers/gameController');
 const isAuthenticated = require('../middleware/isAuthenticated');
 const isAuthenticatedAjax = require('../middleware/isAuthenticatedAjax');
+const noCache = require('../middleware/noCache');
 require('../passport/passport_config');
 
 
 
-router.get('/', isAuthenticated, mainPageController.showMainPage);
+router.get('/', [noCache, isAuthenticated], mainPageController.showMainPage);
 router.get('/logout',mainPageController.logout);
 
 router.get('/login', loginController.login);
@@ -50,7 +48,7 @@ router.get( '/google-callback',
     }
 );
 
-router.get('/perfil',isAuthenticated, profileController.showProfile);
+router.get('/perfil',[noCache, isAuthenticated], profileController.showProfile);
 router.post('/guardar-test', testController.saveTest);
 router.get('/crear-test', isAuthenticated, testController.createTest);
 router.get('/jugar/:test_id',isAuthenticated, gameController.createLobby);
