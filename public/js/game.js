@@ -296,7 +296,6 @@ socket.on('user_out_of_game',function(data){
 })
 
 socket.on('user_ready',function(data){
-    debugger;
     $('#player-item-'+ data.id+' .state').text('Preparado');
 })
 
