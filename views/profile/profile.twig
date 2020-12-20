@@ -18,15 +18,16 @@
             <form action="/update_profile" method="post">
                 <div class="form-group">        
                     <label for="username">Nombre de usuario</label>
-                <input class="form-control rounded-input" type="text" name="username" id="username" placeholder="Nombre de usuario" value="{{ username }}" minlength="3">
+                <input class="form-control rounded-input" type="text" name="username" id="username" placeholder="Nombre de usuario" value="{{ username }}" {% if google_user %} disabled {% endif %} minlength="3">
                 </div>    
                 <div class="form-group">
                     <label for="email">Correo electrónico</label>
-                    <input class="form-control rounded-input" type="text" name="edit_email" id="edit_email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="{{ email }}">
-                </div>    
+                    <input class="form-control rounded-input" type="text" name="edit_email" id="edit_email" placeholder="Email" {% if google_user %} disabled {% endif %} pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" value="{{ email }}">
+                </div>
+                {% if google_user == false %}
                 <div class="form-group">
                     <label for="password">Contraseña actual</label>
-                    <input class="form-control rounded-input" type="password" name="edit_password" id="edit_password" placeholder="Contraseña actual" minlength="8">
+                    <input class="form-control rounded-input" type="password" name="edit_password" id="edit_password" placeholder="Contraseña actual" {% if google_user %} disabled {% endif %} minlength="8">
                 </div>
                 <div class="form-group">
                     <label for="new_password">Nueva contraseña</label>
@@ -35,10 +36,11 @@
                 <div class="form-group">
                     <label for="repeat_password">Repetir contraseña</label>
                     <input class="form-control rounded-input" type="password" name="repeat_password" id="repeat_password" placeholder="Repetir contraseña" oninput="check_new_password(this)">
-                </div>   
+                </div> 
                 <div class="form-group">
                     <input class="btn base-btn rounded-input" type="submit" value="Enviar">
                 </div>
+                {% endif %}
             </form>
         </div>
         <div class="col-md-4 offset-md-3 col-sm-12">

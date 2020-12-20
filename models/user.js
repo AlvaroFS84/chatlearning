@@ -8,7 +8,8 @@ const userSchema = Schema({
     email: String,
     password: String,
     registrationDate: {type:Date, default: Date.now()},
-    connected: { type:Boolean, default:false}
+    connected: { type:Boolean, default:false},
+    google_user: { type:Boolean, deault: false}
 });
 
 userSchema.methods.encryptPassword = function (password){

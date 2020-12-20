@@ -48,6 +48,7 @@ passport.use(new GoogleStrategy({
         username:`${profile.given_name} ${profile.family_name}` 
     },async function (err, user) {
       user.connected = true;
+      user.google_user = true;
       await user.save();
       return done(err, user);
     });

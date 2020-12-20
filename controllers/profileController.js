@@ -18,7 +18,8 @@ const Game = require('../models/game');
         res.render('profile/profile.twig',{ 
             username: req.user.username,
             email: req.user.email,
-            user_games: user_games
+            user_games: user_games,
+            google_user: req.user.google_user,
         });
     }
 
