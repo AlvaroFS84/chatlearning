@@ -10,7 +10,6 @@ const mongoose = require('mongoose');
 const db = mongoose.connection;
 const session = require('express-session')
 const flash = require('express-flash');
-const User = require('./models/user');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 var http = require('http').createServer(app);
@@ -33,7 +32,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //rutas
-app.use(router)
+app.use(router);
+//fix inicio de sesión con Google
+app.disable('etag');
+
 
 mongoose.connect( config.db_connect, {
   useNewUrlParser: true,
@@ -119,7 +121,3 @@ io.on('connection', (socket) => {
     socket.to(data.game_id).emit("update_game_answers", data);
   });
 });
-
-//para pruebas
-app.get('/chat', (req,res) => res.render('./game/game.twig'));
-

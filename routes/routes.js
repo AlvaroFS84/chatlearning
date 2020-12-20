@@ -20,17 +20,6 @@ router.get('/', isAuthenticated, mainPageController.showMainPage);
 router.get('/logout',mainPageController.logout);
 
 router.get('/login', loginController.login);
-/*router.post('/login',
-    passport.authenticate( 
-        'local-signin', 
-        { 
-            successRedirect: '/',
-            failureRedirect: '/login',
-            failureFlash: true,
-            badRequestMessage:'El usuario o contraseña utilizados no son correctos'
-        }
-    )
-);*/
 router.post('/login', function(req, res, next) {
     passport.authenticate('local-signin', function(err, user, info) {
         if (err) { return next(err); }

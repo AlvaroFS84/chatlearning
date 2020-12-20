@@ -24,6 +24,9 @@
     .dropdown-item{
         color: $third-color;
     }
+    span.dropdown-item{
+        cursor: pointer;
+    }
     .dropdown-item:hover{
         color: black;
         background-color: $third-color;
