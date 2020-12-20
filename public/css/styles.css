@@ -29,6 +29,9 @@
 .custom-navbar .dropdown-item {
   color: white;
 }
+.custom-navbar span.dropdown-item {
+  cursor: pointer;
+}
 .custom-navbar .dropdown-item:hover {
   color: black;
   background-color: white;
