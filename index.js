@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
     io.to(data.game_id).emit('lobby_connected');
   });
   socket.on('user_ready',function(data){
-    io.to(data.game_id).emit('user_ready', { username:data.username});
+    io.to(data.game_id).emit('user_ready', data);
   });
   socket.on('user_loged',function(){
     io.emit('user_loged');

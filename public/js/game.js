@@ -223,6 +223,7 @@ function get_ready(clicked){
             get_user_data()
             .then(response => {
                 socket.emit('user_ready',{
+                    id: response.id,
                     username: response.username,
                     game_id: game_id
                 });
@@ -295,7 +296,8 @@ socket.on('user_out_of_game',function(data){
 })
 
 socket.on('user_ready',function(data){
-    $('#player-item-'+ data.username+' .state').text('Preparado');
+    debugger;
+    $('#player-item-'+ data.id+' .state').text('Preparado');
 })
 
 socket.on('all_users_ready', function(){
