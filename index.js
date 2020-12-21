@@ -96,7 +96,7 @@ io.on('connection', (socket) => {
     io.emit('user_loged_out',data);
   })
   socket.on('user_out_of_game',function(data){
-    io.to(data.game_id).emit('user_out_of_game',data);
+    socket.to(data.game_id).emit('user_out_of_game',data);
   });
   socket.on('all_users_ready', function(data){
     io.to(data.game_id).emit('all_users_ready');
