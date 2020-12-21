@@ -175,7 +175,7 @@ socket.on('user_loged_out', function(msg){
 $(window).on('beforeunload', function(){
     get_user_data()
     .then(response => {
-        socket.emit('user_out_of_game', { username:response.username, game_id:game_id }); 
+        socket.emit('user_out_of_game', { id:response.id, username:response.username, game_id:game_id }); 
     }).catch(err =>{
         Swal.fire({
             icon: 'error',
@@ -290,8 +290,8 @@ function insert_answer_value(cliked){
 }
 
 socket.on('user_out_of_game',function(data){
-    if($('#player-item-'+ data.username ) !== undefined){
-        $('#player-item-'+ data.username).remove();
+    if($('#player-item-'+ data.id ) !== undefined){
+        $('#player-item-'+ data.id).remove();
     }
 })
 
