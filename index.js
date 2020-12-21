@@ -12,6 +12,7 @@ const session = require('express-session')
 const flash = require('express-flash');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const favicon = require('serve-favicon')
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
@@ -30,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 
 //rutas
 app.use(router);
