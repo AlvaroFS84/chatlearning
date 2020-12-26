@@ -48,6 +48,7 @@ registerUser = (req,res) => {
             newUser.email = req.body.email;
             newUser.username = req.body.username;
             newUser.password = newUser.encryptPassword(req.body.password);
+            newUser.google_user = false;
             newUser.save( err =>{
                 if(err) req.flash('error', 'El nombre de usuario o el email ya estan siendo utilizados')
                 else req.flash('success', 'Te has registrado con éxito, ya puedes iniciar sesión');
