@@ -15,7 +15,7 @@
             {% if password_notice %}
             <h4>{{ password_notice }}</h4>    
             {% endif %}
-            <form action="/update_profile" method="post">
+            <form action="/actualizar_perfil" method="post">
                 <div class="form-group">        
                     <label for="username">Nombre de usuario</label>
                 <input class="form-control rounded-input" type="text" name="username" id="username" placeholder="Nombre de usuario" value="{{ username }}" {% if google_user %} disabled {% endif %} minlength="3">
