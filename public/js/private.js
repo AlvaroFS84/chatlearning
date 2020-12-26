@@ -1,6 +1,6 @@
 function logout() {
   Swal.fire({
-    title: "Vas a cerra la sesión¿estas seguro?",
+    title: "Vas a cerrar la sesión ¿estas seguro?",
     showDenyButton: true,
     confirmButtonText: `Aceptar`,
     denyButtonText: `Cancelar`,
