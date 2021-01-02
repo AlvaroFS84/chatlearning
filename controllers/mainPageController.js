@@ -1,7 +1,11 @@
 const Test = require('../models/test');
 
 
-
+    /**
+     * Muestra la pagina principal 
+     * @param req
+     * @param res 
+    */
     showMainPage = function(req, res){
         Test.find({}).populate('user').exec(function(err, tests){
             var username = req.user.username; 
@@ -14,14 +18,21 @@ const Test = require('../models/test');
             });
         });
     }
-
+    /**
+     * Cierra la sesión de un usuario 
+     * @param req
+     * @param res 
+    */
     logout = async function(req, res){
         req.user.connected = false;
         await req.user.save();
         req.logout();
         return res.redirect('/login');
     }
-
+    /**
+     * Devuelve el html de la seccion de tests dispobinibles
+     * @param tests
+     */
     printTests = function(tests){
         var html =` <div class="col-sm-12 col-lg-8 offset-lg-2 tests-container">`;
 
@@ -45,7 +56,11 @@ const Test = require('../models/test');
 
         return html += '</div>'
     }
-
+    /**
+     * Devuele los test buscados 
+     * @param req
+     * @param res
+     */
     searchTest = function(req, res){
         var test_name = req.query.searched 
         var searching_info = test_name.length == 0?{}:{'title':  new RegExp('.*'+test_name+'.*', "i") };

@@ -1,9 +1,6 @@
-
-
 const express = require('express')
 const app = express()
 const path = require('path');
-//const i18n = new I18n()
 const router = require('./routes/routes.js') 
 const config = require('./config/config.js')
 const mongoose = require('mongoose');
@@ -36,7 +33,7 @@ app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 //rutas
 app.use(router);
 
-
+//conexión mongoose
 mongoose.connect( config.db_connect, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -57,8 +54,6 @@ db.once('open', function() {
 io.on('connection', (socket) => {
   socket.on('user_join', function(msg){
     connectedUsers[msg.username] = socket;
-    //connectedUsers['aaa'].emit('private','private message');
-    //socket.broadcast.emit('message','public message');
   });
   socket.on('private',function(msg){
     if(msg.type == 'invitation'){
@@ -82,37 +77,70 @@ io.on('connection', (socket) => {
     }
     
   });
+  /**
+   * Evento al entrar en lobby
+   */
   socket.on('on_lobby',function(data){
     socket.join(data.game_id);
     io.to(data.game_id).emit('lobby_connected');
   });
+  /**
+   * Evento usuario preparado para empezar
+   */
   socket.on('user_ready',function(data){
     io.to(data.game_id).emit('user_ready', data);
   });
+  /**
+   * Evento usuario logado
+   */
   socket.on('user_loged',function(){
     io.emit('user_loged');
   });
+  /**
+   * Evento usuario que cierra sesión
+   */
   socket.on('user_loged_out',function(data){
     io.emit('user_loged_out',data);
   })
+  /**
+   * Evento lanzado cuando un ususario sale del test
+   */
   socket.on('user_out_of_game',function(data){
     socket.to(data.game_id).emit('user_out_of_game',data);
   });
+  /**
+   * Evento todos los usuarios preparados
+   */
   socket.on('all_users_ready', function(data){
     io.to(data.game_id).emit('all_users_ready');
   });
+  /**
+   * Evento mensaje de chat
+   */
   socket.on('chat_msg', function(data){
     socket.to(data.game_id).emit("chat_msg", data);
   });
+  /**
+   * Evento respuesta contestada
+   */
   socket.on('question_answered', function(data){
     socket.to(data.game_id).emit("question_answered", data);
   });
+  /**
+   * Evento próxima pregunta
+   */
   socket.on('next_question', function(data){
     socket.to(data.game_id).emit( "next_question", data );
   });
+  /**
+   * Evento test finalizado
+   */
   socket.on('game_finished', function(data){
     io.to(data.game_id).emit('game_finished',data);
   });
+  /**
+   * Evento actualizar respuesta durante el test
+   */
   socket.on('update_game_answers', function(data){
     socket.to(data.game_id).emit("update_game_answers", data);
   });

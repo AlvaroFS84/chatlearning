@@ -1,7 +1,10 @@
 const Test = require('../models/test');
-const Question = require('../models/question');
 
-
+    /**
+     * Almacena un test
+     * @param req 
+     * @param res 
+     */
     saveTest = function(req, res){
         var test = new Test();
         test.title = req.body.title;
@@ -21,7 +24,11 @@ const Question = require('../models/question');
             
         });
     }
-
+    /**
+     * Muestra la página de crear test
+     * @param req 
+     * @param res 
+     */
     createTest = function(req,res){
         res.render('test/create_test.twig', {username:req.user.username});
     }

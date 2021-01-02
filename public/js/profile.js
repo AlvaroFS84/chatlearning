@@ -1,3 +1,7 @@
+/**
+ * Comprueba que las dos contraseñas sean iguales
+ * @param input 
+ */
 function check_new_password(input){
     var new_pass = $('#new_password').val();
     var repeated_pass = $(input).val();

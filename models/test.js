@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+/**
+ * Constructor
+ */
 const testSchema = Schema({
     title: String,
     questions: [],

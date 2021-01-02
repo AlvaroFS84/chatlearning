@@ -28,13 +28,18 @@ $(document).ready(function(){
             n_question++;   
         }
     })
-
+    /**
+     * Borra pregunta de test
+     */
     $('#delete-question').click(function(){
         let n_question = $('.question').length;
         if(n_question > 1){
             $('.question')[n_question-1].remove();
         }
     });
+    /**
+     * Evento enviar el formulario de crear test
+     */
     $('#save-test-form').submit(function(e){
         e.preventDefault();
         var test = formToObject();
@@ -45,7 +50,9 @@ $(document).ready(function(){
         }
     })
 })
-
+/**
+ * Almacena las respuestas del test en un objeto
+ */
 function formToObject(){
     var test = {
         title:$('#test-name').val(),
@@ -69,7 +76,10 @@ function formToObject(){
 
     return jQuery.isEmptyObject(test)?false:test;
 }
-
+/**
+ * Envia el formulario del test
+ * @param test 
+ */
 function submitTest(test){
     var json_test = JSON.stringify(test);
     $.ajax({
@@ -95,7 +105,10 @@ function submitTest(test){
         }
     });
 }
-
+/**
+ * Añade pregunta al test
+ * @param question 
+ */
 function addAnswer(question){
     var n_answers = $('#answer-container-'+ question +' .answer-group').length;
     if( n_answers < 5){
@@ -108,6 +121,10 @@ function addAnswer(question){
         $('#answer-container-' + question).append(new_answer);
     }   
 }
+/**
+ * Elimina pregunta del test
+ * @param question 
+ */
 function removeAnswer(question){
     var last_answer = $('#answer-container-' + question +' .answer-group').length;
     if(last_answer >2 ){

@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * Constructor
+ */
 const questionSchema = Schema({
     _test: { type: Number, ref: 'Test' },
     text: String,

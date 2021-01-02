@@ -1,9 +1,11 @@
-const { collection } = require('../models/user');
-const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const Game = require('../models/game');
 
-    
+    /**
+     * Muestra la página de perfil
+     * @param req
+     * @param res
+     */
     showProfile = async function(req,res){
         var user_games = await Game.find({
             'users':{
@@ -23,6 +25,11 @@ const Game = require('../models/game');
         });
     }
 
+    /**
+     * Actualiza la información del perfil del usuario
+     * @param req
+     * @param res
+     */
     updateProfile = async function(req,res){
 
         var data = {};

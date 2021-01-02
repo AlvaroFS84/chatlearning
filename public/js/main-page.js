@@ -7,7 +7,9 @@ $(document).ready(function(){
         }
     });
 });
-
+/**
+ * Realiza la petición para la busqueda de tests
+ */
 function searchTest(){
     var searched = $('#search-user-input').val();
     
@@ -30,7 +32,10 @@ function searchTest(){
         }
     });    
 }
-
+/**
+ * Envía a la pagina del test que se va a realizar
+ * @param test_id 
+ */
 function go_to_test(test_id){
     Swal.fire({
         title: 'Vas a crear una nueva sala de test ¿estás seguro?',

@@ -1,24 +1,21 @@
 const User = require('../models/user');
-const { updateUserState } = require('./gameController');
 
-
-
-    /**
-     * Mostrar pagina de registro
-     * @param {*} req 
-     * @param {*} res 
-     */
-    register = (req,res) => {
-        res.render('register/register.twig', { 
-            error: req.flash('error') ,
-            success: req.flash('success'),
-        });    
-    }
-    /**
-     * Almacenar un usuario nuevo
-     * @param {*} req 
-     * @param {*} res 
-     */
+/**
+ * Mostrar pagina de registro
+ * @param req 
+ * @param res 
+ */
+register = (req,res) => {
+    res.render('register/register.twig', { 
+        error: req.flash('error') ,
+        success: req.flash('success'),
+    });    
+}
+/**
+ * Almacenar un usuario nuevo
+ * @param req 
+ * @param res 
+ */
 registerUser = (req,res) => {
     if(req.body.username == 0){
         req.flash('error', 'El nombre de usuario no puede estar vacío');
@@ -58,7 +55,11 @@ registerUser = (req,res) => {
         
     });
 }
-
+/**
+ * Obtiene la información del usuario
+ * @param req 
+ * @param res 
+ */
 getUserData = function(req, res) {
     var data = {
         id: req.user._id,

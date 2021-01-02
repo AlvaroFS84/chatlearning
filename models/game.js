@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+/**
+ * Constructor
+ */
 const gameSchema = Schema({
     title: String,
     test: { type: Schema.Types.ObjectId, ref: 'Test' },

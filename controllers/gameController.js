@@ -1,8 +1,12 @@
-const mongoose = require('mongoose');
 const Game = require('../models/game');
 const Test = require('../models/test');
 const User = require('../models/user');
 
+/**
+ * Muestra la página de lobby de un test
+ * @param req 
+ * @param res 
+ */
 createLobby = async function(req,res){
     var test_id = req.params.test_id;
     var test = await Test.findById(test_id);
@@ -42,7 +46,11 @@ lobby = async function(req,res){
     }
     
 }
-
+/**
+ * Obtiene los usuarios participantes de un test
+ * @param req 
+ * @param res 
+ */
 getConnectedPlayers = function(req,res){
     var game_id = req.query.game_id;
     Game.findById(game_id).populate('users.user').exec(function(err, game){
@@ -59,7 +67,11 @@ getConnectedPlayers = function(req,res){
         
     })  
 } 
-
+/**
+ * Obtiene los usuarios conectados
+ * @param req 
+ * @param res 
+ */
 getConnectedUsers = async function(req,res){
     var fields = {connected: true, username:{ $ne:req.user.username}};
     if(req.query.searched) 
@@ -77,6 +89,11 @@ getConnectedUsers = async function(req,res){
         });
 } 
 
+/**
+ * Elimina a un participante de un test
+ * @param req 
+ * @param res 
+ */
 deteUserFromGame = async function(req,res){
     //borra del array de jugadores al salir
     await Game.findOneAndUpdate(
@@ -96,6 +113,11 @@ deteUserFromGame = async function(req,res){
     .catch(err => res.send(err));
 }
 
+/**
+ * Actualiza el estado del jugador
+ * @param req 
+ * @param res 
+ */
 updateUserState = async function(req,res){
     await Game.findOneAndUpdate(
         {_id: req.body.game_id},
@@ -117,6 +139,11 @@ updateUserState = async function(req,res){
     .catch(err => res.send())
 }
 
+/**
+ * Actualiza el estado del juego
+ * @param req 
+ * @param res 
+ */
 updateGameState = function(req,res){
     Game.findOneAndUpdate(
         {_id: req.body.game_id},
@@ -125,6 +152,11 @@ updateGameState = function(req,res){
      .catch( err => res.send(err));
 }
 
+/**
+ * Obtiene el estado del juego
+ * @param req 
+ * @param res 
+ */
 getGameState = async function(req,res){
     try{
         var game = await Game.findById(req.body.game_id);
@@ -142,6 +174,11 @@ getGameState = async function(req,res){
 
 }
 
+/**
+ * Calcula la nota de un juego
+ * @param req 
+ * @param res 
+ */
 calculateGameResult = async function(req, res){
     try{
         var game = await  Game.findById(req.body.game_id).populate('test');
@@ -165,7 +202,11 @@ calculateGameResult = async function(req, res){
 
 }
 
-//comprueba si el usuario ya esta en el juego
+/**
+ * Comprueba si el usuario ya esta en el juego
+ * @param user_id
+ * @param game_id
+ */
 alreadyInGame = async function(user_id, game_id) {
     var result = await Game.findById(game_id).find({ 
         users: { 
@@ -176,6 +217,10 @@ alreadyInGame = async function(user_id, game_id) {
     return result.length != 0;
 }
 
+/**
+ * Obtiene el html de la seccion de jugadores
+ * @param users
+ */
 printPlayers = function(users){
     var html = ``;
     users.forEach(function(user){
@@ -189,6 +234,10 @@ printPlayers = function(users){
     return html;
 } 
 
+/**
+ * Obtiene el html de la seccion de uusarios conectados
+ * @param users
+ */
 printConnectedUsers = function(users){
     var html = ``;
     users.forEach(function(user){
@@ -205,6 +254,10 @@ printConnectedUsers = function(users){
     return html;
 }
 
+/**
+ * Comprueba si todos los usuarios estan preparados para empezar
+ * @param users
+ */
 checkIfAllReady = function(users){
     var all_ready = true;
 
@@ -215,7 +268,11 @@ checkIfAllReady = function(users){
 
     return all_ready;
 }
-
+/**
+ * Obtiene la calificacion de un test
+ * @param game_answers
+ * @param user_answers
+ */
 getCalification = function( game_answers, user_answers){
     var calification = 0;
 
@@ -228,7 +285,8 @@ getCalification = function( game_answers, user_answers){
 }
 
 /**
- * Obtiene el indice de la respuesta correcta
+ * Comprueba las respuestas correctas
+ * @param stored_answers
  */
 getCorrectAnswer = function(stored_answers){
     var correct = null;

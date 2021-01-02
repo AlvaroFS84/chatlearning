@@ -92,7 +92,9 @@ if(game_id){
     get_players();
     get_users();
 }
-
+/**
+ * Realiza la petición para obtener los usuarios participando en el test
+ */
 function get_players(){
     socket.emit('on_lobby', {
         game_id:game_id,
@@ -117,7 +119,9 @@ function get_players(){
         });
     });
 }
-
+/**
+ * Realiza la petición para obtener los usuarios conectados
+ */
 function get_users(searched){
     $.ajax({
         url:'/getConnectedUsers',
@@ -138,12 +142,17 @@ function get_users(searched){
         }
     });
 }
-
+/**
+ * Busca un nombre de usuario
+ */
 function search_users(){
     var searched = $('#search-user-input').val();
     get_users(searched);
 }
-
+/**
+ * Evento enviar invitacion
+ * @param receiver 
+ */
 function send_invitation(receiver){
     get_user_data()
         .then(response => {
@@ -160,9 +169,15 @@ function send_invitation(receiver){
             })
         });
 }
+/**
+ * Evento usuario logado
+ */
 socket.on('user_loged', function(){
     get_users();
 })
+/**
+ * Evento logout de usuario
+ */
 socket.on('user_loged_out', function(msg){
     if($('#player-item-'+ msg.id ) !== undefined){
         $('#player-item-'+ msg.id).remove();
@@ -171,7 +186,9 @@ socket.on('user_loged_out', function(msg){
         $('#user-item-'+ msg.id).remove();
     }
 })
-//al cerrar o irse del juego
+/**
+ * Evento al cerrar o irse del juego
+ */
 $(window).on('beforeunload', function(){
     get_user_data()
     .then(response => {
@@ -194,7 +211,10 @@ $(window).on('beforeunload', function(){
 });
 
 
-
+/**
+ * Evento de usuario listo para empezar
+ * @param clicked 
+ */
 function get_ready(clicked){
     var button_clicked = clicked;
     Swal.fire({
@@ -236,7 +256,10 @@ function get_ready(clicked){
         }
       })
 }
-
+/**
+ * Pinta los mensajes propios en el chat
+ * @param text 
+ */
 function printOwnMessage(text){
     get_user_data()
     .then(response => {
@@ -262,7 +285,10 @@ function printOwnMessage(text){
         })
     });  
 }
-
+/**
+ * Pinta mensaje en el chat
+ * @param data 
+ */
 function printReceivedMessage(data){
     var html = ` <div class="message-container">
                     <div class="message">
@@ -273,13 +299,19 @@ function printReceivedMessage(data){
     $('#chat-area').append(html);
     $("#chat-area").scrollTop($("#chat-area")[0].scrollHeight);
 }
-
+/**
+ * Pasa a la proxima pregunta
+ * @param clicked 
+ */
 function next_question(clicked){
     var question = clicked.parent();
     question.hide();
     question.next().show();
 }
-
+/**
+ * Almacena la respuesta en el array de respuestas
+ * @param cliked 
+ */
 function insert_answer_value(cliked){
     var radio_answered = $(cliked).parent().find('.answer-radio:checked');
     game_answers.push(radio_answered.val());
@@ -288,17 +320,23 @@ function insert_answer_value(cliked){
         game_answers: game_answers
     });
 }
-
+/**
+ * Borra los usuarios que salen
+ */
 socket.on('user_out_of_game',function(data){
     if($('#player-item-'+ data.id ) !== undefined){
         $('#player-item-'+ data.id).remove();
     }
 })
-
+/**
+ * Muestra el mensaje de usuario preparado para empezar
+ */
 socket.on('user_ready',function(data){
     $('#player-item-'+ data.id+' .state').text('Preparado');
 })
-
+/**
+ * Evento de todos los usuarios conectados
+ */
 socket.on('all_users_ready', function(){
     $.ajax({
         url:'/update_game_state',
@@ -320,16 +358,28 @@ socket.on('all_users_ready', function(){
     });
     
 })
+/**
+ * Evento mensake recibido
+ */
 socket.on('chat_msg', function(data){
     printReceivedMessage(data);
 })
+/**
+ * Actualiza las respuestas contestadas por otro usuario
+ */
 socket.on('question_answered', function(data){
     $('#' + data.answer_id).prop('checked',true)
         .siblings('.answer-btn').prop('disabled',false);
 })
+/**
+ * Evento pasa la siguiente pregunta
+ */
 socket.on('next_question', function(data){
     next_question($('#' + data.button_id));
 });
+/**
+ * Evento juego terminado
+ */
 socket.on('game_finished', function(data){
     Swal.fire({
         title: 'La calificación del test es '+ data.calification,
@@ -342,6 +392,9 @@ socket.on('game_finished', function(data){
         }
       })
 });
+/**
+ * 
+ */
 socket.on('update_game_answers', function(data){
     game_answers = data.game_answers;
 });

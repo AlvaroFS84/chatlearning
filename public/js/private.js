@@ -1,3 +1,6 @@
+/**
+ * Cierra sesión
+ */
 function logout() {
   Swal.fire({
     title: "Vas a cerrar la sesión ¿estas seguro?",
@@ -35,6 +38,9 @@ get_user_data()
         text: 'No se ha podido obtener el nombre de usuario'
     })
 });
+/**
+ * Eventos de invitación a test
+ */
 socket.on("private", function (msg) {
   if (msg.type === "invitation") {
     var port = msg.port;
@@ -82,7 +88,9 @@ socket.on("private", function (msg) {
   }
 });
 socket.on("message", function (data) {});
-
+/**
+ * Realiza una petición para obtener los datos de usuarios
+ */
 function get_user_data(){
   var user_promise = new Promise( (resolve, reject) => {
       $.ajax({
